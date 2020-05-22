@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+
+.astreik::before {
+  content: "*";
+  color: red;
+  float: left;
+}
+
+.boldd{
+font-weight:bold
+}
+
+</style>
+<meta charset="ISO-8859-1">
+<title>Update Campaign</title>
+</head>
+<body>
+<form action="CreateCampaign" method="post">
+<table width="80%" class="boldd">
+<h1>Create a new Campaign </h1>
+
+<tr>
+<td class="astreik">Campaign Title  :</td>
+<td><input type="text"  required></td>
+</tr>
+
+<tr>
+<td class="astreik">Campaign Description :</td>
+<td><textarea cols='45' rows='6' required></textarea></td>
+</tr>
+
+<tr></tr>
+<tr>
+<td><u>Campaign Criteria:</u></td>
+</tr>
+
+<tr>
+<td>Average Balance >:</td>
+<td><input type="number"  ></td>
+</tr>
+
+<tr>
+<td>Age of Relationship >:</td>
+<td><input type="text"  ></td>
+</tr>
+
+<tr>
+<td>Profession  :</td>
+<td><input type="text" required size="45" ></td>
+</tr>
+
+<tr>
+<td class="astreik">Valid From :</td>
+<td><input type="date"  required> eg:DD/MM/YYYY</td>
+</tr>
+
+<tr>
+<td class="astreik">Valid to  :</td>
+<td><input type="date" name="date1"  id="date1"></td>
+</tr>
+
+<tr>
+<td></td>
+<td><input type="submit" value="Submit">
+<input type="reset" value="Reset">
+<input type="button" value="Back" onclick="history.back()"></td>
+</tr>
+
+</table>
+</form>
+</body>
+</html>
