@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.POJOclass.Campaign;
 import com.dao.InsertCampaignDAO;
 
 
@@ -27,21 +28,22 @@ public class InsertCampaign extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
-		PrintWriter obj = response.getWriter();
-		String campaignTitle = request.getParameter("campaignTitle");
-		String campaignDescription = request.getParameter("campaignDescription");
-		String valid_from = request.getParameter("valid_from");
-		String valid_to = request.getParameter("valid_to");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-		InsertCampaignDAO insert = new InsertCampaignDAO();
-		try {
-			Date from_date = sdf.parse(valid_from);
-			Date to_date = sdf1.parse(valid_to);
-			insert.setUser(campaignTitle, campaignDescription, from_date, to_date);
-		} catch (ParseException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		PrintWriter out = response.getWriter();
+		try
+		{
+			Campaign obj = new Campaign();
+			obj.setCampaignTitle(request.getParameter("campaignTitle"));
+			obj.setCampaignDescription(request.getParameter("campaignDescription"));
+			obj.setValid_from(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_from")));
+			obj.setValid_to(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_to")));
+
 		}
+		catch(Exception e)
+		{
+			
+		}
+		InsertCampaignDAO icd = new InsertCampaignDAO();
+		icd.insertCampaign(obj);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
