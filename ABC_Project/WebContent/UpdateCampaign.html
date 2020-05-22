@@ -18,18 +18,18 @@ font-weight:bold
 <title>Update Campaign</title>
 </head>
 <body>
-<form action="CreateCampaign" method="post">
+<form action="InsertCampaign" method="post">
 <table width="80%" class="boldd">
 <h1>Create a new Campaign </h1>
 
 <tr>
 <td class="astreik">Campaign Title  :</td>
-<td><input type="text"  required></td>
+<td><input type="text"  required name="campaignTitle"></td>
 </tr>
 
 <tr>
 <td class="astreik">Campaign Description :</td>
-<td><textarea cols='45' rows='6' required></textarea></td>
+<td><textarea cols='45' rows='6' required name="campaignDescription"></textarea></td>
 </tr>
 
 <tr></tr>
@@ -39,7 +39,7 @@ font-weight:bold
 
 <tr>
 <td>Average Balance >:</td>
-<td><input type="number"  ></td>
+<td><input type="number" ></td>
 </tr>
 
 <tr>
@@ -54,12 +54,12 @@ font-weight:bold
 
 <tr>
 <td class="astreik">Valid From :</td>
-<td><input type="date"  required> eg:DD/MM/YYYY</td>
+<td><input type="date"  required name="valid_from"> eg:DD/MM/YYYY</td>
 </tr>
 
 <tr>
 <td class="astreik">Valid to  :</td>
-<td><input type="date" name="date1"  id="date1"></td>
+<td><input type="date" name="date1"  id="date1" name="valid_to"></td>
 </tr>
 
 <tr>
