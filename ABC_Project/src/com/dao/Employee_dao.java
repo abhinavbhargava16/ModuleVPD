@@ -19,9 +19,9 @@ public class Employee_dao {
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			Employee t= new Employee();
-			t.setUsername(rs.getString(1));
-			t.setPassword(rs.getString(2));
-			t.setUserid(rs.getInt(3));
+			t.setUsername(rs.getString(7));
+			t.setPassword(rs.getString(8));
+			t.setDesig(rs.getString(5));
 			return t;
 		}
 		else {

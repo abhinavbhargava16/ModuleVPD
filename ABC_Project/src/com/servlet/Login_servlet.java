@@ -23,19 +23,20 @@ public class Login_servlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
-	
+	     
+		String m="manager";
+		String s="sales agent";
 		
 		RequestDispatcher rd;
 		
-		String user="",pass="";
-		int id=0;
+		String user="",pass="",desig="";
 		Employee_dao ob = new Employee_dao();
 		Employee tt;
 		try {
 			tt = ob.checkUser(username);
 			user = tt.getUsername();
 			pass = tt.getPassword();
-			id=tt.getUserid();
+			desig= tt.getDesig().toLowerCase();
 		} 
 		
 		catch (ClassNotFoundException |SQLException  e) 
@@ -43,16 +44,17 @@ public class Login_servlet extends HttpServlet {
 			e.printStackTrace();
 		} 	   
 		
-		out.println(user + pass + id);
+//		out.println(username + password);
+//		out.println(user + pass +desig);
 		
 		if(username.equals(user) && password.equals(pass))
 		{
-			if(id==1)
+			if(desig.equals(m))
 			{
 				rd=request.getRequestDispatcher("/Campaign.html");
 			    rd.forward(request, response);
 			}
-			else if(id==2)
+			else if(desig.equals(s))
 			{
 				rd=request.getRequestDispatcher("ContactCustomers.jsp");
 			    rd.forward(request, response);

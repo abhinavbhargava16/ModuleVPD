@@ -2,15 +2,21 @@ package com.POJOclass;
 
 public class Employee {
 	
-	String username,password;
-	int userid;
+	String username,password,desig;
 
-	public int getUserid() {
-		return userid;
+	public Employee(String username, String password, String desig) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.desig = desig;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public String getDesig() {
+		return desig;
+	}
+
+	public void setDesig(String desig) {
+		this.desig = desig;
 	}
 
 	public String getUsername() {
@@ -29,12 +35,7 @@ public class Employee {
 		this.password = password;
 	}
 
-	public Employee(String username, String password,int userid) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.userid=userid;
-	}
+	
 	
 	public Employee()
 	{
