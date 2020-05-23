@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Campaign</title>
+<%@page import="java.sql.*, com.DBConnection.DBConnection;"%>
 </head>
 <body>
 <h1 align="center">List of Campaigns</h1>
@@ -15,20 +16,34 @@
 <td>Valid from</td>
 <td>Valid to</td>
 </tr>
-
-<tr>
-</tr>
-
-<tr>
-</tr>
-
-<tr>
-</tr>
-
-<tr>
-</tr>
-
-
+<%
+try
+{
+	String query = "select * from campaign order by valid_to desc;";
+	Connection conn = DBConnection.getConnection();
+	Statement stmt=conn.createStatement();
+	ResultSet rs=stmt.executeQuery(query);
+	while(rs.next())
+	{
+%>
+	<tr>
+                <td><%=rs.getString("campaignTitle") %></td>
+                <td><%=rs.getDate("valid_from") %></td>
+                <td><%=rs.getDate("valid_to") %></td>
+                   
+    </tr>	
+<%          
+	}
+rs.close();
+stmt.close();
+conn.close();
+	
+}
+catch(Exception e)
+{
+    e.printStackTrace();
+}
+%>
 <tr>
 <td></td>
 <td><input type="button" value="Back" onclick="history.back()"></td>
