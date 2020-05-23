@@ -33,7 +33,7 @@ public class InsertCampaign extends HttpServlet {
 		InsertCampaignDAO icd = new InsertCampaignDAO();
 		try
 		{
-			
+			out.println("Inside Campaign");
 			Campaign obj = new Campaign();
 			obj.setCampaignTitle(request.getParameter("campaignTitle"));
 			obj.setCampaignDescription(request.getParameter("campaignDescription"));
