@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.POJOclass.Campaign;
+import com.POJOclass.CampaignCriteria;
 import com.dao.InsertCampaignDAO;
 
 
@@ -29,21 +30,37 @@ public class InsertCampaign extends HttpServlet {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		InsertCampaignDAO icd = new InsertCampaignDAO();
 		try
 		{
+			
 			Campaign obj = new Campaign();
 			obj.setCampaignTitle(request.getParameter("campaignTitle"));
 			obj.setCampaignDescription(request.getParameter("campaignDescription"));
 			obj.setValid_from(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_from")));
 			obj.setValid_to(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_to")));
+			icd.insertCampaign(obj);
 
 		}
 		catch(Exception e)
 		{
 			
 		}
-		InsertCampaignDAO icd = new InsertCampaignDAO();
-		icd.insertCampaign(obj);
+		
+		try
+		{
+			CampaignCriteria ccobj = new CampaignCriteria();
+			ccobj.setAgeOfRelationship(request.getParameter("ageOfRelationship"));
+			ccobj.setAverageBalance(request.getParameter("averagebalance"));
+			ccobj.setProfession(request.getParameter("profession"));
+			icd.insertCampaignCriteria(ccobj);
+			
+		}
+		catch(Exception e)
+		{
+			
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
