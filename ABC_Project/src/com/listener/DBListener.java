@@ -10,17 +10,16 @@ import javax.servlet.annotation.WebListener;
 
 import com.DBConnection.DBConnection;
 
-
+/**
+ * Application Lifecycle Listener implementation class DBListener
+ *
+ */
 @WebListener
 public class DBListener implements ServletContextListener {
 
-  
-
-	
-    public void contextDestroyed(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
-    	
-    	ServletContext context = sce.getServletContext();
+    
+    public void contextDestroyed(ServletContextEvent arg0)  { 
+    	ServletContext context = arg0.getServletContext();
     	Connection conn = (Connection)context.getAttribute("connection");
     	try {
 			conn.close();
@@ -29,12 +28,9 @@ public class DBListener implements ServletContextListener {
 			e.printStackTrace();
 		}
     }
-
 	
-    public void contextInitialized(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
-    	
-    	ServletContext context = sce.getServletContext();
+    public void contextInitialized(ServletContextEvent arg0)  { 
+    	ServletContext context = arg0.getServletContext();
     	try {
     		
 			Connection conn = DBConnection.getConnection();
@@ -46,4 +42,4 @@ public class DBListener implements ServletContextListener {
 			
 		}
     }
-	
+}
