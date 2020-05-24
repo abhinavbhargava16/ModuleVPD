@@ -5,9 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Campaign</title>
-<%@page import="java.sql.*, com.DBConnection.DBConnection;"%>
+<%@page import="java.sql.*, com.DBConnection.DBConnection, com.dao.InsertCampaignDAO, java.util.ArrayList, com.POJOclass.Campaign, java.util.Iterator;"%>
 </head>
 <body>
+<% String x = (String)session.getAttribute("status");
+	if(!x.equals("True1"))
+	{
+		request.getRequestDispatcher("login.jsp").forward(request,response);
+	}
+	else 
+	{
+		Connection conn = (Connection)request.getServletContext().getAttribute("connection");
+		ArrayList<Campaign> campaignList = new InsertCampaignDAO().listCampaign(conn);
+%>
 <h1 align="center">List of Campaigns</h1>
 <table align= "center" cellpadding="2px" cellspacing="20px">
 
@@ -17,35 +27,19 @@
 <td>Valid to</td>
 </tr>
 <%
-try
-{
-	String query = "select * from campaign order by valid_to desc;";
-	Connection conn = DBConnection.getConnection();
-	Statement stmt=conn.createStatement();
-	ResultSet rs=stmt.executeQuery(query);
-	while(rs.next())
-	{
-%>
-	<tr>
-                <td><%=rs.getString("campaignTitle") %></td>
-                <td><%=rs.getDate("valid_from") %></td>
-                <td><%=rs.getDate("valid_to") %></td>
-                   
-    </tr>	
-<%          
-	}
-rs.close();
-stmt.close();
-conn.close();
-	
-}
-catch(Exception e)
-{
-    e.printStackTrace();
-}
+Iterator<Campaign>i = campaignList.listIterator();
+while(i.hasNext()){
+	Campaign temp = i.next();
+
 %>
 <tr>
-<td></td>
+		<td><a href="UpdateCampaign.jsp?id=<%= temp.getCampaignID() %>"><%=temp.getCampaignTitle() %></a></td>
+		<td><%= temp.getValid_from() %></td>
+		<td><%= temp.getValid_to() %></td>
+		<%} %>
+		<%
+}
+%>
 <td><input type="button" value="Back" onclick="history.back()"></td>
 <td></td>
 </tr>
