@@ -51,7 +51,7 @@ public class Login_servlet extends HttpServlet {
 		{
 			if(desig.equals(m))
 			{
-				rd=request.getRequestDispatcher("/Campaign.html");
+				rd=request.getRequestDispatcher("Campaign_Menu.jsp");
 			    rd.forward(request, response);
 			}
 			else if(desig.equals(s))

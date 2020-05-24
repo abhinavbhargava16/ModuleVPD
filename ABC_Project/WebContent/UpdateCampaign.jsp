@@ -1,6 +1,6 @@
-<%@page import="com.dao.FindCampaignDAO"%>
-<%@page import="com.POJOclass.Campaign"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="com.dao.FindCampaignDAO, java.sql.Connection, com.POJOclass.Campaign"%>
+<%-- <%@page import="com.POJOclass.Campaign"%>
+<%@page import="java.sql.Connection;"%> --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,7 +36,7 @@ if(obj == null){
 
 <tr>
 <td class="astreik">Campaign Title  :</td>
-<td colspan="2" style="padding:0px 0px 0px 30px;"><%=obj.getCampaignTitle()%></td>
+<td colspan="2"><%=obj.getCampaignTitle()%></td>
 </tr>
 
 <tr>
@@ -54,12 +54,12 @@ if(obj == null){
 
 <tr>
 <td>Age of Relationship >:</td>
-<td colspan="2" style="padding:0px 0px 0px 30px;"><%=obj.getAgeOfRelationship() %></td>
+<td colspan="2"><%=obj.getAgeOfRelationship() %></td>
 </tr>
 
 <tr>
 <td>Profession  :</td>
-<td colspan="2" style="padding:0px 0px 0px 30px;"><%=obj.getProfession() %></td>
+<td colspan="2"><%=obj.getProfession() %></td>
 </tr>
 
 <tr>

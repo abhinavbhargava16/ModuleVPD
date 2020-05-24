@@ -24,7 +24,7 @@ function validate()
 	    var Date1 = new Date(from);
 	    var Date2 = new Date(to);
 	   
-	    else if(Date1>Date2)
+	  	if(Date1>Date2)
 	    	{
 	    	document.getElementById("s_to").innerHTML="";
 	    	document.getElementById("s_from").innerHTML="Valid From should not be later than the Valid to date";

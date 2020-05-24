@@ -61,8 +61,8 @@ public class InsertCampaignDAO {
 	public void updateCampaign(Connection conn, String id, java.util.Date from, java.util.Date to) throws SQLException
 	{
 		PreparedStatement ps = conn.prepareStatement("update campaign set valid_from=?,valid_to=? where campaign_id=?");
-		ps.setDate(1, from);
-		ps.setDate(2, to);
+		ps.setDate(1, (Date) from);
+		ps.setDate(2, (Date) to);
 		ps.setString(3, id);
 		ps.execute();
 		ps = conn.prepareStatement("Insert into campaign_log values(?,?,?,?");

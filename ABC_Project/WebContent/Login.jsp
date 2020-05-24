@@ -17,7 +17,7 @@ function refesh()
 	document.getElementById("name").reset();
     document.getElementById("password").reset();
 }
-        function validate()
+function validate()
         {
              document.getElementById("name").focus();
             var name = document.getElementById("name").value;
