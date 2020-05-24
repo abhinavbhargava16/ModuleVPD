@@ -21,12 +21,6 @@ font-weight:bold
 <script type="text/javascript">
 function validate()
 {
-	 	document.getElementById("name").focus();
-	    var avg = document.getElementById("avg").value;
-	    var age = document.getElementById("age").value;
-	    var profession = document.getElementById("profession").value;
-	    var from = document.getElementById("date1").value;
-	    var to = document.getElementById("date2").value;
 	    var Date1 = new Date(from);
 	    var Date2 = new Date(to);
 	   
