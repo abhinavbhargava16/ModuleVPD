@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,13 +18,18 @@ import com.POJOclass.Campaign;
 import com.dao.InsertCampaignDAO;
 
 
-@WebServlet("/InsertCampaign")
-public class InsertCampaign extends HttpServlet {
+@WebServlet("/CreateCampaign")
+public class CreateCampaign extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -56,10 +60,6 @@ public class InsertCampaign extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

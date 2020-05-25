@@ -44,6 +44,13 @@ function validate()
 <title>Update Campaign</title>
 </head>
 <body>
+<%
+String x = (String)session.getAttribute("status");
+if(!x.equals("True1")){
+	
+	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
+}
+%>
 <form action="CreateCampaign" method="post">
 <table width="80%" class="boldd" align="center">
 <h1 align="center">Create a new Campaign </h1>

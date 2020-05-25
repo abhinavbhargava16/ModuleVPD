@@ -1,4 +1,4 @@
-<%@page import="java.sql.*, com.DBConnection.DBConnection, com.dao.InsertCampaignDAO, java.util.ArrayList, com.POJOclass.Campaign, java.util.Iterator;"%>
+<%@page import="java.sql.*, com.DBConnection.DBConnection, com.DAO.CampaignDAO, java.util.ArrayList, com.POJO.CampaignPOJO, java.util.Iterator;"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,15 +9,15 @@
 
 </head>
 <body>
-<% String x = (String)session.getAttribute("status");
-	if(!x.equals("True1"))
+<% String str = (String)session.getAttribute("status");
+	if(!str.equals("True1"))
 	{
-		request.getRequestDispatcher("login.jsp").forward(request,response);
+		request.getRequestDispatcher("LoginPage.jsp").forward(request,response);
 	}
 	else 
 	{
 		Connection conn = (Connection)request.getServletContext().getAttribute("connection");
-		ArrayList<Campaign> campaignList = new InsertCampaignDAO().listCampaign(conn);
+		ArrayList<CampaignPOJO> campaignList = new CampaignDAO().listCampaign(conn);
 %>
 <h1 align="center">List of Campaigns</h1>
 <table align= "center" cellpadding="2px" cellspacing="20px">
@@ -28,9 +28,9 @@
 <td>Valid to</td>
 </tr>
 <%
-Iterator<Campaign>i = campaignList.listIterator();
+Iterator<CampaignPOJO>i = campaignList.listIterator();
 while(i.hasNext()){
-	Campaign temp = i.next();
+	CampaignPOJO temp = i.next();
 
 %>
 <tr>
