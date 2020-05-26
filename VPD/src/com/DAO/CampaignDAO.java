@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Statement;
 
-import com.DBConnection.DBConnection;
 import com.POJO.CampaignPOJO;
 import com.POJO.EmployeePOJO;
 
@@ -42,7 +42,8 @@ public class CampaignDAO {
 		ps.execute();
 		
 	}
-	public ArrayList<CampaignPOJO>listCampaign(Connection conn) throws SQLException{
+	
+	public ArrayList<CampaignPOJO> listCampaign(Connection conn) throws SQLException{
 		ArrayList<CampaignPOJO> myList = new ArrayList<CampaignPOJO>();
 		PreparedStatement stmt = conn.prepareStatement("select a.campaign_id,a.campaign_title,a.description,a.valid_from,a.valid_to,b.age_of_relationship,b.min_balance,b.profession from campaign a,campaign_criteria b where a.campaign_id=b.campaign_id");
 		ResultSet rs = stmt.executeQuery();
@@ -61,15 +62,39 @@ public class CampaignDAO {
 		}
 		return myList;
 	}
-	public void updateCampaign(Connection conn, String id, java.util.Date from, java.util.Date to) throws SQLException
+	
+	public CampaignPOJO findCampaign(Connection conn, String id) throws SQLException
 	{
-		PreparedStatement ps = conn.prepareStatement("update campaign set valid_from=?,valid_to=? where campaign_id=?");
-		ps.setDate(1, (Date) from);
-		ps.setDate(2, (Date) to);
-		ps.setString(3, id);
-		ps.execute();
+		PreparedStatement st = conn.prepareStatement("select a.campaign_id,a.campaign_title,a.description,a.valid_from,a.valid_to,b.age_of_relationship,b.min_balance,b.profession from campaign a,campaign_criteria b where a.campaign_id=b.campaign_id and a.campaign_id=?");
+		st.setString(1, id);
+		ResultSet rs = st.executeQuery();
+		if(rs.next())
+		{
+			CampaignPOJO temp = new CampaignPOJO();
+			temp.setCampaignID(rs.getInt(1));
+			temp.setCampaignTitle(rs.getString(2));
+			temp.setCampaignDescription(rs.getString(3));
+			temp.setValid_from(rs.getDate(4));
+			temp.setValid_to(rs.getDate(5));
+			temp.setAgeOfRelationship(rs.getInt(6));
+			temp.setAverageBalance(rs.getDouble(7));
+			temp.setProfession(rs.getString(8));
+			return temp;
+			
+		}
+		return null;
 		
-		ps = conn.prepareStatement("Insert into campaign_log values(?,?,?,?");
+	}
+	public void updateCampaign(Connection conn, String id,  java.util.Date from, java.util.Date to) throws SQLException
+	{
+		PreparedStatement ps = conn.prepareStatement("update campaign set valid_from=?, valid_to=? where campaign_id=?");
+		System.out.println("Inside Update Campaign DAO");
+		ps.setDate(1, new Date(from.getTime()));
+		ps.setDate(2, new Date(to.getTime()));
+		ps.setString(3, id);
+		ps.executeUpdate();
+		
+		ps = conn.prepareStatement("insert into campaign_log values(?,?,?,?");
 		ps.setString(1, id);
 		ps.setString(2, "3");
 		ps.setTimestamp(3, new Timestamp(Calendar.getInstance().getTime().getTime()));
