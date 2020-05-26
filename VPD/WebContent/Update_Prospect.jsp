@@ -52,7 +52,7 @@ Iterator<StatusPOJO>i = custList.listIterator();
 		</tr>
 		<tr>
 			<td><span>*</span>Campaign Description </td>
-			<td colspan="3" style="padding:30px 0px 0px 30px;"><%=obj.getCampaignDescription() %></textarea></td>
+			<td colspan="3" style="padding:30px 0px 0px 30px;"><%=obj.getCampaignDescription() %></td>
 		</tr>
 		<tr>
 			<td>Customer name  </td>
