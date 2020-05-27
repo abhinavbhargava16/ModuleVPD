@@ -26,17 +26,20 @@ public class ProspectiveServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try
-		{
+		{	
+			System.out.println("Inside Prospect Servlet");
+			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 			
 			String id = request.getParameter("campaign");
 			CampaignPOJO poj = new CampaignDAO().findCampaign(conn, id);
-			ArrayList<ProspectivePOJO> prospectiveList = new ArrayList<ProspectivePOJO>();
+			ArrayList<ProspectivePOJO> prospectiveList = new ProspectDAO().listUnassignedProspective(conn, poj);
 			
 			if(prospectiveList!=null)
 			{
+				System.out.println("Inside Prospect List");
 				request.setAttribute("proList", prospectiveList);
 				request.setAttribute("campaignSelected", id);
 				request.getRequestDispatcher("AssignProspects.jsp").forward(request, response);

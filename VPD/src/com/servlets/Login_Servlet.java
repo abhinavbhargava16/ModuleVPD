@@ -47,7 +47,7 @@ public class Login_Servlet extends HttpServlet {
 			session.setAttribute("user", e);
 			request.getRequestDispatcher("Campaign_Menu.jsp").forward(request, response);
 		}
-		else if(e.getRole()==4)
+		else if(e.getRole()==2)
 		{
 			session.setAttribute("status", "True2");
 			session.setAttribute("user", e);

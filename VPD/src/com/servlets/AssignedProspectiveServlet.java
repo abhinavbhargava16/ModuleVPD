@@ -29,30 +29,29 @@ public class AssignedProspectiveServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		try {
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			Connection conn = (Connection) request.getServletContext().getAttribute("connection");
+		
+		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
+		
+		String id = request.getParameter("active");
+		ArrayList<ProspectivePOJO>prospectList = new ProspectDAO().selectProspect(conn, id);
+		
+		if(prospectList!=null) {
+			request.setAttribute("proList", prospectList);
 			
-			String id = request.getParameter("active");
-			ArrayList<ProspectivePOJO> prospectList = new ProspectDAO().selectProspect(conn, id);
-			
-			if(prospectList!=null)
-			{
-				request.setAttribute("proList", prospectList);
-				request.getRequestDispatcher("Reassign_Prospects.jsp").forward(request, response);
-				
-			}
+			request.getRequestDispatcher("Re-assign_Prospects.jsp").forward(request, response);
 		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
+		}catch(SQLException e) {
+			out.println("WE ARE HAVING TROUBLE FETCHING DATA!");
 		}
-		catch(NullPointerException e)
-		{
-			request.getRequestDispatcher("Reassign_Prospects.jsp").forward(request, response);
+		catch(NullPointerException e) {
+			request.getRequestDispatcher("Re-assign_Prospects.jsp").forward(request, response);
 		}
+		
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

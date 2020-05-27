@@ -24,26 +24,30 @@ public class UpdateServlet extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		try
-		{	
-			System.out.println("Inside Update Campaign");
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		
+		try {
+			
+			System.out.println("inside update servlet");
 			ServletContext context = request.getServletContext();
 			Connection conn = (Connection) context.getAttribute("connection");
 			String id = request.getParameter("id");
 			Date from = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_from"));
-			Date to =  new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_to"));
+			Date to = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("valid_to"));
 			
-			CampaignDAO icd = new CampaignDAO();
-			icd.updateCampaign(conn, id, from, to);
+			CampaignDAO obj = new CampaignDAO();
+			obj.updateCampaign(conn, id, from, to);
 			out.println("Campaign Updated");
 			request.getRequestDispatcher("Campaign_Menu.jsp").include(request, response);
-		}
-		catch (ParseException | SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			
+			out.println("SQLException");
 			e.printStackTrace();
 		}
+		
 	}
 
 	

@@ -15,49 +15,38 @@ import com.DAO.ProspectDAO;
 
 
 
-/**
- * Servlet implementation class ReassignServlet
- */
+
 @WebServlet("/ReassignServlet")
 public class ReassignServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReassignServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try
-		{
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		try {
+		
 		String name[] = request.getParameterValues("prospectNames");
 		String salesperson = request.getParameter("salesperson");
 		ProspectDAO obj = new ProspectDAO();
 		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 		
-		for(String i:name)
-		{
-			obj.updateProspectiveAssign(conn, Integer.parseInt(i), Integer.parseInt(salesperson));
+		for(String i:name) {
+			
+			obj.updateProspectiveAssign(conn, salesperson,i);
 			
 		}
-		out.println("Salesperson with employee ID- "+salesperson+" has been assign "+name.length+"prospects");
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
+		
+		out.print("system: Salesperson with employeeid-"+salesperson+" has been assigned "+name.length+" prospect(s)");
+		request.getRequestDispatcher("Re-assign_Prospects.jsp").include(request, response);
+		}catch(SQLException e) {
+			out.println("WE ARE HAVING TROUBLE FETCHING DATA!");
 		}
-	
+		catch(NullPointerException e) {
+			out.println("SYSTEM:CAN'T PROCESS EMPTY REQUESTS");
+			request.getRequestDispatcher("Re-assign_Prospects.jsp").include(request, response);
+		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

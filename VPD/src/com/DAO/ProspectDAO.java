@@ -11,7 +11,7 @@ import com.POJO.ProspectivePOJO;
 
 
 public class ProspectDAO {
-	public ArrayList<ProspectivePOJO> listUnassignedProspective(Connection conn,CampaignPOJO poj ) throws SQLException{
+	public ArrayList<ProspectivePOJO> listUnassignedProspective(Connection conn,CampaignPOJO poj) throws SQLException{
 		double avg = poj.getAverageBalance();
 		int age = poj.getAgeOfRelationship();
 		String prof = poj.getProfession();
@@ -55,7 +55,7 @@ public class ProspectDAO {
 		{
 			ProspectivePOJO temp = new ProspectivePOJO();
 			temp.setCustomerID(rs.getInt(1));
-			Integer cid = Integer.parseInt(rs.getString(2));
+			String cid = rs.getString(2);
 			temp.setCampaginID(cid);
 			String name = rs.getString(3)+ " " +rs.getString(4);
 			temp.setCustomerName(name);
@@ -72,22 +72,22 @@ public class ProspectDAO {
 	{
 		PreparedStatement stmt = conn.prepareStatement("insert into prospective_customer values(?,?,?,'Assigned',null)");
 		stmt.setInt(1, prospect.getCustomerID());
-		stmt.setInt(2, prospect.getCampaginID());
+		stmt.setString(2, prospect.getCampaginID());
 		stmt.setInt(3,prospect.getHandlerId());
 		stmt.execute();
-		
-		stmt = conn.prepareStatement("insert into status values(pro_status_id.nextval,?,sysdate,'Assigned',null)");
+		System.out.println("After inserting in prospect table");
+		stmt = conn.prepareStatement("insert into status values(pro_status_id.nextval,?,SYSDATE,'Assigned',null)");
 		stmt.setInt(1, prospect.getCustomerID());
 		stmt.execute();	
 	}
-	public void updateProspectiveAssign(Connection conn, int emp_id,int cust_id) throws SQLException {
+	public void updateProspectiveAssign(Connection conn, String emp_id,String cust_id) throws SQLException {
 		PreparedStatement stmt = conn.prepareStatement("UPDATE PROSPECTIVE_CUSTOMER SET EMPLOYEE_ID=? WHERE CUSTOMER_ID=?");
-		stmt.setInt(1, emp_id);
-		stmt.setInt(2, cust_id);
+		stmt.setString(1, emp_id);
+		stmt.setString(2, cust_id);
 		stmt.execute();
 		
 		stmt = conn.prepareStatement("INSERT INTO STATUS VALUES(PRO_STATUS_ID.NEXTVAL,?,SYSDATE,'REASSIGNED',NULL)");
-		stmt.setInt(1,cust_id); 
+		stmt.setString(1,cust_id); 
 		stmt.execute();
 		
 		
@@ -95,7 +95,7 @@ public class ProspectDAO {
 	public int countAllProspective(Connection conn,CampaignPOJO camp ) throws SQLException {
 		
 		PreparedStatement stmt = conn.prepareStatement("select * from prospective_customer where campaign_id=?");
-		stmt.setString(1,Integer.toString(camp.getCampaignID()));
+		stmt.setString(1,camp.getCampaignID());
 		ResultSet rs = stmt.executeQuery();
 		int count = 0;
 		while(rs.next()) {
@@ -113,7 +113,7 @@ public class ProspectDAO {
 		if(rs.next())
 		{
 			temp.setCustomerID(rs.getInt(1));
-			temp.setCampaginID(rs.getInt(2));
+			temp.setCampaginID(rs.getString(2));
 			String name = rs.getString(3) + " " + rs.getString(4);
 			temp.setCustomerName(name);
 			temp.setPhoneNumber(rs.getString(5));

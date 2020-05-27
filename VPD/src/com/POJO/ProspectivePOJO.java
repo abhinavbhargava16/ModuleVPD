@@ -2,7 +2,7 @@ package com.POJO;
 
 public class ProspectivePOJO {
 	
-	private int campaginID;
+	private String campaginID;
 	private int customerID;
 	private String customerName;
 	private double balance;
@@ -24,10 +24,10 @@ public class ProspectivePOJO {
 	public void setHandlerId(int handlerId) {
 		this.handlerId = handlerId;
 	}
-	public int getCampaginID() {
+	public String getCampaginID() {
 		return campaginID;
 	}
-	public void setCampaginID(int campaign) {
+	public void setCampaginID(String campaign) {
 		this.campaginID = campaign;
 	}
 	public int getCustomerID() {
@@ -66,7 +66,7 @@ public class ProspectivePOJO {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public ProspectivePOJO(int campaginID, int customerID, String customerName, double balance, int ageOfRelationship,
+	public ProspectivePOJO(String campaginID, int customerID, String customerName, double balance, int ageOfRelationship,
 			String status, String phoneNumber, int handlerId, String occupation) {
 		super();
 		this.campaginID = campaginID;

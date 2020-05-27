@@ -11,6 +11,7 @@
 
 <h1 align="center">Campaign Management</h1>
 <p align="right"><a href="Logout.jsp" target="_top">Logout</a></p>
+
 <div align ="center">
 <pre>
 <a href="CreateCampaign.jsp">Create a new Campaign</a><br>

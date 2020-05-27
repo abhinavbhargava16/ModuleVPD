@@ -34,7 +34,7 @@ public class EmployeeDAO {
 
 }
 	public ArrayList<EmployeePOJO> listAllSalesperson(Connection conn) throws SQLException{
-		PreparedStatement stmt = conn.prepareStatement("SELECT EMP_ID,EMP_FIRST_NAME,EMP_LAST_NAME FROM EMPLOYEE WHERE EMP_ROLE=3");
+		PreparedStatement stmt = conn.prepareStatement("select emp_id,emp_first_name,emp_last_name from employee where emp_role='3'");
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<EmployeePOJO>empList = new ArrayList<EmployeePOJO>();
 		while(rs.next()) {
@@ -57,6 +57,21 @@ public class EmployeeDAO {
 			EmployeePOJO e = new EmployeePOJO();
 			e.setEmployee_id(rs.getInt(1));
 			String fullname = rs.getString(2)+ " " +rs.getString(3);
+			e.setName(fullname);
+			empList.add(e);
+		}
+		return empList;
+		
+	}
+	public ArrayList<EmployeePOJO> listSalespersonCampaign(Connection conn,String campid) throws SQLException{
+		PreparedStatement stmt = conn.prepareStatement("SELECT EMP_ID,EMP_FIRST_NAME,EMP_LAST_NAME FROM EMPLOYEE WHERE EMP_ID IN (SELECT EMPLOYEE_ID FROM PROSPECTIVE_CUSTOMER WHERE CAMPAIGN_ID=?)");
+		stmt.setString(1, campid);
+		ResultSet rs = stmt.executeQuery();
+		ArrayList<EmployeePOJO>empList = new ArrayList<EmployeePOJO>();
+		while(rs.next()) {
+			EmployeePOJO e = new EmployeePOJO();
+			e.setEmployee_id(rs.getInt(1));
+			String fullname = rs.getString(2)+" "+rs.getString(3);
 			e.setName(fullname);
 			empList.add(e);
 		}

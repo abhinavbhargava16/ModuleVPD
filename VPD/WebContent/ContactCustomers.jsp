@@ -42,8 +42,8 @@ Iterator<ProspectivePOJO>i = proList.listIterator();
 			ProspectivePOJO p = i.next();
 			%>
 		<tr>
-			<td><a href="CampaignFile.jsp?id=<%=p.getCampaginID() %>"><%=new CampaignDAO().findCampaign(conn, Integer.toString(p.getCampaginID())).getCampaignTitle() %></a>
-			<td><a href="Update_Prospect.jsp?custId=<%=p.getCustomerID()%>"><%=p.getCustomerName() %></a></td>
+<td><a href="CampaignFile.jsp?id=<%= p.getCampaginID() %>"><%= new CampaignDAO().findCampaign(conn, p.getCampaginID()).getCampaignTitle() %></a></td>			
+<td><a href="Update_Prospect.jsp?custId=<%=p.getCustomerID()%>"><%=p.getCustomerName() %></a></td>
 			<td><%=p.getPhoneNumber() %></td>
 			<td><%= p.getStatus() %></td>
 		</tr>

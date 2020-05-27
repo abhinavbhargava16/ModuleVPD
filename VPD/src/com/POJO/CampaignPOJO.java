@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class CampaignPOJO {
 	
-	private int campaignID;
+	private String campaignID;
 	private String campaignTitle;
 	private String campaignDescription;
 	private Date valid_from;
@@ -16,7 +16,7 @@ public class CampaignPOJO {
 	
 	
 
-	public CampaignPOJO(int campaignID, String campaignTitle, String campaignDescription, Date valid_from,
+	public CampaignPOJO(String campaignID, String campaignTitle, String campaignDescription, Date valid_from,
 			Date valid_to, int ageOfRelationship, double averageBalance, String profession, int emp_id) {
 		super();
 		this.campaignID = campaignID;
@@ -38,11 +38,11 @@ public class CampaignPOJO {
 		this.emp_id = emp_id;
 	}
 
-	public int getCampaignID() {
+	public String getCampaignID() {
 		return campaignID;
 	}
 
-	public void setCampaignID(int campaignID) {
+	public void setCampaignID(String campaignID) {
 		this.campaignID = campaignID;
 	}
 

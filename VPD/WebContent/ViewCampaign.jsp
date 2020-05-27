@@ -29,7 +29,7 @@ String x = (String)session.getAttribute("status");
 
 if(!x.equals("True1")){
 	
-	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
+	request.getRequestDispatcher("Login.jsp").forward(request, response);
 }
 else{
 	Connection conn = (Connection)request.getServletContext().getAttribute("connection"); 
@@ -50,7 +50,7 @@ else{
 	
 %>
 	<tr>
-		<td><a href="UpdateCampaign.jsp?id=<%= temp.getCampaignID() %>"><%=temp.getCampaignTitle() %></a></td>
+		<td><a href="UpdateCampaign.jsp?id=<%=temp.getCampaignID()%>"><%=temp.getCampaignTitle() %></a></td>
 		<td><%=temp.getValid_from() %></td>
 		<td><%=temp.getValid_to() %></td>
 	</tr>

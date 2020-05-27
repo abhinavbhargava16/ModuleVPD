@@ -39,7 +39,7 @@ function refresh()
 <%String id = request.getParameter("custId");
 Connection conn = (Connection)request.getServletContext().getAttribute("connection");
 ProspectivePOJO p = new ProspectDAO().getDetails(conn, id);
-CampaignPOJO obj = new CampaignDAO().findCampaign(conn, Integer.toString(p.getCampaginID()));
+CampaignPOJO obj = new CampaignDAO().findCampaign(conn, p.getCampaginID());
 ArrayList<StatusPOJO>custList = new StatusDAO().custStatus(conn, Integer.toString(p.getCustomerID()));
 Iterator<StatusPOJO>i = custList.listIterator();
 %>

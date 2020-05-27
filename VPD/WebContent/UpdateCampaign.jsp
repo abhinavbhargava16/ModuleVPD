@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Campaign</title>
 <style type="text/css">
 	span{
             color:crimson;
@@ -17,12 +17,6 @@
 function back()
 {
 	window.history.back();
-}
-function refesh()
-{
-	
-    document.getElementById("from").reset();
-    document.getElementById("to").reset();
 }
 function validate()
 {
@@ -117,7 +111,7 @@ if(obj == null){
 			<td><input type="hidden" name="id" value=<%=obj.getCampaignID()%>></td>
 			
 			<td><input type="submit" name="" value="Sumbit" onclick="return validate()"></td>
-			<td><input type="button" name="" value="Refresh" onclick="return refesh()"></td>
+			<td><input type="reset" name="" value="Refresh"></td>
 			<td><input type="button" name="" value="Back" onclick="return back()"></td>
 		</tr>
 	</table>

@@ -28,36 +28,42 @@ public class AssignServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		try
-		{
-			PrintWriter out = response.getWriter();
-			String name[] = request.getParameterValues("prospectNames");
-			String salesperson = request.getParameter("salesperson");
-			String campaign = (String) request.getParameter("hid");
-			ProspectDAO obj = new ProspectDAO();
-			
-			Connection conn = (Connection) request.getServletContext().getAttribute("connection");
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		System.out.println("Inside assign servlet");
+		try {
 		
-			for(String i:name)
-			{
-				ProspectivePOJO p = new ProspectivePOJO();
-				p.setCustomerID(Integer.parseInt(i));
-				Integer c = Integer.parseInt(campaign);
-				p.setCampaginID(c);
-				p.setHandlerId(Integer.parseInt(salesperson));
-				obj.insertProspective(conn,p);
-				
-				
-			}
-			out.println("Assigned");
+		String name[] = request.getParameterValues("prospectNames");
+		String salesperson = request.getParameter("salesperson");
+		String campaign = (String) request.getParameter("hid");
+		ProspectDAO obj = new ProspectDAO();
+		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
+		
+		for(String i:name) {
+			ProspectivePOJO p = new ProspectivePOJO();
+			p.setCustomerID(Integer.parseInt(i));
+			p.setCampaginID(campaign);
+			p.setHandlerId(Integer.parseInt(salesperson));
+			obj.insertProspective(conn, p);
+			
 		}
-		catch(SQLException e) {
+		out.print("SYSTEM:Salesperson with Employee ID-"+salesperson+" has been assign "+name.length+" prospect(s) for campaign id :"+campaign);
+		request.getRequestDispatcher("AssignProspects.jsp").include(request, response);
+		}catch(SQLException e) {
+			out.println("SQL Exception");
 			e.printStackTrace();
+			
 		}
-	
+		catch (NullPointerException e) {
+			out.println("SYSTEM:CAN'T PROCESS EMPTY REQUESTS");
+			request.getRequestDispatcher("AssignProspects.jsp").include(request, response);
+			
+			
+		}
+		
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
