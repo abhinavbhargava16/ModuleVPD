@@ -18,6 +18,7 @@ function back()
 {
 	window.history.back();
 }
+
 function validate()
 {
 	 document.getElementById("from").focus();
@@ -58,7 +59,13 @@ function validate()
 </script>
 </head>
 <body>
-<%String id = request.getParameter("id");
+<%
+String x = (String)session.getAttribute("status");
+if(!x.equals("True1")){
+	
+	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
+}
+String id = request.getParameter("id");  //id=campaignid
 Connection conn = (Connection)request.getServletContext().getAttribute("connection"); 
 CampaignPOJO obj = new CampaignDAO().findCampaign(conn, id);
 if(obj == null){
@@ -111,7 +118,7 @@ if(obj == null){
 			<td><input type="hidden" name="id" value=<%=obj.getCampaignID()%>></td>
 			
 			<td><input type="submit" name="" value="Sumbit" onclick="return validate()"></td>
-			<td><input type="reset" name="" value="Refresh"></td>
+			<td><input type="reset" name="" value="Refresh" ></td>
 			<td><input type="button" name="" value="Back" onclick="return back()"></td>
 		</tr>
 	</table>

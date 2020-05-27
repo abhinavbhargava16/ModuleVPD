@@ -50,7 +50,7 @@ else{
 	
 %>
 	<tr>
-		<td><a href="UpdateCampaign.jsp?id=<%=temp.getCampaignID()%>"><%=temp.getCampaignTitle() %></a></td>
+		<td><a href="UpdateCampaign.jsp?id=<%= temp.getCampaignID() %>"><%=temp.getCampaignTitle() %></a></td> <!-- id=campaignid -->
 		<td><%=temp.getValid_from() %></td>
 		<td><%=temp.getValid_to() %></td>
 	</tr>

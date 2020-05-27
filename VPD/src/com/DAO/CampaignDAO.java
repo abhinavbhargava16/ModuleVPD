@@ -79,18 +79,19 @@ public class CampaignDAO {
 		}
 		return null;
 	}
-	public void updateCampaign(Connection conn, String id, java.util.Date from, java.util.Date to) throws SQLException {
+	public void updateCampaign(Connection conn, String id, java.util.Date from, java.util.Date to,EmployeePOJO emp_id) throws SQLException {
 		System.out.println("Inside update campaign");
-		PreparedStatement stmt = conn.prepareStatement("update campaign set valid_from=?,valid_to where campaign_id=?");
+		PreparedStatement stmt = conn.prepareStatement("update campaign set valid_from=?,valid_to=? where campaign_id=?");
 		System.out.println("after prepare statement");
 		stmt.setDate(1, new Date(from.getTime()));
 		stmt.setDate(2, new Date(to.getTime()));
 		stmt.setString(3, id);
 		stmt.execute();
-		stmt = conn.prepareStatement("INSERT INTO CAMPAIGN_LOG VALUES(campaign_id_sequence.currval,?,?,?)");
+		stmt = conn.prepareStatement("INSERT INTO CAMPAIGN_LOG VALUES(?,?,?,?)");
 		stmt.setString(1, id);
-		stmt.setTimestamp(2, new Timestamp(Calendar.getInstance().getTime().getTime()));
-		stmt.setString(3, "Campaign Updated");
+		stmt.setInt(2, emp_id.getEmployee_id());
+		stmt.setTimestamp(3, new Timestamp(Calendar.getInstance().getTime().getTime()));
+		stmt.setString(4, "Campaign Updated");
 		stmt.execute();
 		
 	}
