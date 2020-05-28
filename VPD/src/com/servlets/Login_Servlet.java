@@ -51,7 +51,7 @@ public class Login_Servlet extends HttpServlet {
 		{
 			session.setAttribute("status", "True2");
 			session.setAttribute("user", e);
-			request.getRequestDispatcher("AssignProspects.jsp").forward(request, response);
+			request.getRequestDispatcher("ContactCustomers.jsp").forward(request, response);
 		}
 		else
 		{
@@ -62,6 +62,7 @@ public class Login_Servlet extends HttpServlet {
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			out.println("WE ARE HAVING TROUBLE FETCHING DATA!");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
