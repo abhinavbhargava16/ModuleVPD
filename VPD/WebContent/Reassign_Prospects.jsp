@@ -25,13 +25,13 @@ function back()
 <%
 	String x = (String)session.getAttribute("status");
 if(!x.equals("True1")){
-	request.getRequestDispatcher("Login.jsp").forward(request, response);
+	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
 }
 else{
 	Connection conn = (Connection)request.getServletContext().getAttribute("connection");
 	ArrayList<EmployeePOJO>assignList = new ArrayList<EmployeePOJO>();
 	EmployeeDAO obj = new EmployeeDAO();
-	assignList = obj.getAssignedSalesPerson(conn);
+	assignList = obj.getAssignedSalesPerson(conn); //returns epmloyee list in the prospect table
 	Iterator<EmployeePOJO>i = assignList.listIterator();
 %>
 <h1 align="center">Re-assign prospects</h1>
@@ -40,7 +40,7 @@ else{
 	<tr>
 		<td>Sales Agent</td>
 		<td>
-			<select name="active">
+			<select name="active"> <!-- returns employee id -->
 				<option></option>
 				<%
 				while(i.hasNext()){
@@ -67,18 +67,18 @@ else{
 		<th>Phone Number</th>
 	</tr>
 
-	<%if(request.getAttribute("proList")!=null){
-		ArrayList<ProspectivePOJO>proList = (ArrayList<ProspectivePOJO>)request.getAttribute("proList");
+	<%if(request.getAttribute("proList")!=null){ //gets the prospect list assigned to the employee id
+		ArrayList<ProspectivePOJO>proList = (ArrayList<ProspectivePOJO>)request.getAttribute("proList"); //stores the list inside the array list
 		Iterator<ProspectivePOJO>j = proList.listIterator();
 		CampaignDAO obj2 = new CampaignDAO();
 		
 		while(j.hasNext()){
-			ProspectivePOJO temp = j.next();
-			CampaignPOJO proCamp = obj2.findCampaign(conn, temp.getCampaginID());
+			ProspectivePOJO temp = j.next(); //returning customerid customer name and phone number and campaign id
+			CampaignPOJO proCamp = obj2.findCampaign(conn, temp.getCampaginID()); //passes connection and campaign id
 			%>
 		<tr>
 		<td><input type="checkbox" id="check" name="prospectNames" value=<%=temp.getCustomerID() %>></td>
-		<td><%= proCamp.getCampaignTitle()%></td>
+		<td><%= proCamp.getCampaignTitle()%></td> <!-- returns campaign title with the help of campaign ID -->
 		<td><%=temp.getCustomerName()%></td>
 		<td><%=temp.getPhoneNumber() %></td>
 		

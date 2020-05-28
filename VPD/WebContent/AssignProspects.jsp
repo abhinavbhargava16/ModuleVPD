@@ -30,7 +30,7 @@ function back()
 <%	
 	String x = (String)session.getAttribute("status");
 if(!x.equals("True1")){
-	request.getRequestDispatcher("Login.jsp").forward(request, response);
+	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
 }
 else{
 	Connection conn = (Connection)request.getServletContext().getAttribute("connection");
@@ -75,9 +75,9 @@ else{
 		<th>Phone Number</th>
 	</tr>
 	<%if(request.getAttribute("proList")!=null){
-		String id = (String)request.getAttribute("campSelected");
+		String id = (String)request.getAttribute("campaignSelected");
 		%>
-		<tr><td><input type="hidden" name ="hid" value=<%=id %>></td></tr>
+		<tr><td><input type="hidden" name ="hid" value=<%=id %>></td></tr> <!-- campaign_id = id here. Now move to assign servlet -->
 		<%
 		ArrayList<ProspectivePOJO>proList = (ArrayList<ProspectivePOJO>)request.getAttribute("proList");
 		ListIterator<ProspectivePOJO>j = proList.listIterator();
@@ -116,7 +116,7 @@ else{
 				%>
 			
 				
-				<option value=<%=sale.getEmployee_id() %>><%=sale.getName() %></option>
+				<option value=<%=sale.getEmployee_id() %>><%=sale.getName() %></option><!-- Employee_id is in salesperson -->
 				<%
 				}
 				%>

@@ -33,22 +33,22 @@ public class MonitorServlet extends HttpServlet {
 			
 			Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 			
-			String id = request.getParameter("campaign");
-			request.setAttribute("campid", id);
+			String id = request.getParameter("campaign"); //Campaign ID
+			request.setAttribute("campid", id); //campid is campaign_id
 			CampaignPOJO camp = new CampaignDAO().findCampaign(conn, id);
-			int countAll = new ProspectDAO().countAllProspective(conn, camp);
-			ArrayList<ProspectivePOJO>prospectList = new ProspectDAO().listUnassignedProspective(conn, camp);
+			int countAll = new ProspectDAO().countAllProspective(conn, camp); //passing connection and campaignPOJO object
+			ArrayList<ProspectivePOJO>prospectList = new ProspectDAO().listUnassignedProspective(conn, camp); //should return all unassigned prospects
 			int countUnassigned=0;
 			if(prospectList!=null) {
 				countUnassigned = prospectList.size();
 			}
 			
-			ArrayList<EmployeePOJO>emList = new EmployeeDAO().listSalespersonCampaign(conn, id);
+			ArrayList<EmployeePOJO>emList = new EmployeeDAO().listSalespersonCampaign(conn, id); //id is campaign_ID
 			if(emList!=null) {
-				request.setAttribute("emList", emList);
+				request.setAttribute("emList", emList); //emList is the arraylist which consists of all salespersons
 			}
-			request.setAttribute("tot", countAll+countUnassigned);
-			request.setAttribute("un", countUnassigned);
+			request.setAttribute("tot", countAll+countUnassigned); //tot is countAll + countUnassigned
+			request.setAttribute("un", countUnassigned); //un is only unassigned
 			request.getRequestDispatcher("Monitor_Campaign.jsp").forward(request, response);
 			}
 			catch(SQLException e) {

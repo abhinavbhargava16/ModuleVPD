@@ -48,8 +48,8 @@ public class ProspectiveServlet extends HttpServlet {
 //					System.out.println(it);
 //					it.next();
 //				}
-				request.setAttribute("proList", prospectiveList);
-				request.setAttribute("campaignSelected", id);
+				request.setAttribute("proList", prospectiveList); //listofprospects
+				request.setAttribute("campaignSelected", id); //campaign_id from POJO
 				request.getRequestDispatcher("AssignProspects.jsp").forward(request, response);
 			}
 		}

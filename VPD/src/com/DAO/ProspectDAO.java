@@ -49,12 +49,14 @@ public class ProspectDAO {
 }
 	public ArrayList<ProspectivePOJO> selectProspect(Connection conn, String id) throws SQLException
 	{
+		System.out.println("Inside select Prospect");
 		PreparedStatement stmt = conn.prepareStatement("SELECT A.CUSTOMER_ID,A.CAMPAIGN_ID,B.CUST_FIRST_NAME,B.CUST_LAST_NAME,B.MOBILE_NUM,A.STATUS FROM CUSTOMER B JOIN PROSPECTIVE_CUSTOMER A ON B.CUSTOMER_ID = A.CUSTOMER_ID WHERE A.EMPLOYEE_ID=?");
-		stmt.setString(1,id);
+		stmt.setString(1,id); //setting employee id
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<ProspectivePOJO>myList=new ArrayList<ProspectivePOJO>();
 		while(rs.next())
 		{
+			System.out.println("Inside select prospect while loop");
 			ProspectivePOJO temp = new ProspectivePOJO();
 			temp.setCustomerID(rs.getInt(1));
 			String cid = rs.getString(2);
@@ -67,18 +69,18 @@ public class ProspectDAO {
 			myList.add(temp);
 			
 		}
-		return null;
+		return myList;
 		
 	}
 	public void insertProspective(Connection conn, ProspectivePOJO prospect) throws SQLException
 	{
-		PreparedStatement stmt = conn.prepareStatement("insert into prospective_customer values(?,?,?,'Assigned',null)");
+		PreparedStatement stmt = conn.prepareStatement("insert into prospective_customer values(?,?,?,'Assigned',NULL)");
 		stmt.setInt(1, prospect.getCustomerID());
 		stmt.setString(2, prospect.getCampaginID());
 		stmt.setInt(3,prospect.getHandlerId());
 		stmt.execute();
-//		System.out.println("After inserting in prospect table");
-		stmt = conn.prepareStatement("insert into status values(pro_status_id.nextval,?,SYSDATE,'Assigned',null)");
+		System.out.println("After inserting in prospect table");
+		stmt = conn.prepareStatement("insert into status values(pro_status_id.nextval,?,SYSDATE,'Assigned',NULL)");
 		stmt.setInt(1, prospect.getCustomerID());
 		stmt.execute();	
 	}
@@ -88,7 +90,7 @@ public class ProspectDAO {
 		stmt.setString(2, cust_id);
 		stmt.execute();
 		
-		stmt = conn.prepareStatement("INSERT INTO STATUS VALUES(PRO_STATUS_ID.NEXTVAL,?,SYSDATE,'REASSIGNED',NULL)");
+		stmt = conn.prepareStatement("INSERT INTO STATUS VALUES(PRO_STATUS_ID.NEXTVAL,?,SYSDATE,'Reassigned',NULL)");
 		stmt.setString(1,cust_id); 
 		stmt.execute();
 		

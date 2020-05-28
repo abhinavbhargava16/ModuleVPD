@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class StatisticsDAO {
 	public static int getProspect(Connection conn,int id,String campid) throws SQLException {
 		int x = 0;
-		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PROSPECTIVE_CUSTOMER WHERE EMPLOYEE_ID=? AND CAMPAIGN_ID=? AND STATUS='ASSIGNED'");
+		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM PROSPECTIVE_CUSTOMER WHERE EMPLOYEE_ID=? AND CAMPAIGN_ID=? AND STATUS='Assigned'");
 		stmt.setInt(1, id);
 		stmt.setString(2, campid);
 		ResultSet rs = stmt.executeQuery();

@@ -26,8 +26,8 @@ public class ReassignServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 		
-		String name[] = request.getParameterValues("prospectNames");
-		String salesperson = request.getParameter("salesperson");
+		String name[] = request.getParameterValues("prospectNames"); //customer ids
+		String salesperson = request.getParameter("salesperson"); //employee ids
 		ProspectDAO obj = new ProspectDAO();
 		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 		
@@ -37,14 +37,16 @@ public class ReassignServlet extends HttpServlet {
 			
 		}
 		
-		out.print("system: Salesperson with employeeid-"+salesperson+" has been assigned "+name.length+" prospect(s)");
-		request.getRequestDispatcher("Re-assign_Prospects.jsp").include(request, response);
+		out.print("Salesperson with <b>Employee ID</b>-"+salesperson+" has been assigned "+name.length+" prospect(s)");
+		request.getRequestDispatcher("Reassign_Prospects.jsp").include(request, response);
 		}catch(SQLException e) {
+			e.printStackTrace();
 			out.println("WE ARE HAVING TROUBLE FETCHING DATA!");
 		}
 		catch(NullPointerException e) {
+			e.printStackTrace();
 			out.println("SYSTEM:CAN'T PROCESS EMPTY REQUESTS");
-			request.getRequestDispatcher("Re-assign_Prospects.jsp").include(request, response);
+			request.getRequestDispatcher("Reassign_Prospects.jsp").include(request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -15,7 +15,6 @@
 <div align ="center">
 <pre>
 <a href="CreateCampaign.jsp">Create a new Campaign</a><br>
-<a href="UpdateCampaign.jsp">Update a Campaign</a><br>
 <a href="AssignProspects.jsp">Assign Prospects to Sales agent</a><br>
 <a href="Reassign_Prospects.jsp">Reassign Prospect to Sales agent</a><br>
 <a href="Monitor_Campaign.jsp">Monitor Campaign effectiveness</a><br>

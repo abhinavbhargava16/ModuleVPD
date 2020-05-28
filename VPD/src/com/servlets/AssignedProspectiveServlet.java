@@ -29,25 +29,30 @@ public class AssignedProspectiveServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("Inside assigned Prospective Servlet");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		try {
 		
 		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
-		
-		String id = request.getParameter("active");
-		ArrayList<ProspectivePOJO>prospectList = new ProspectDAO().selectProspect(conn, id);
+		System.out.println("Inside try block of assigned Prospective Servlet");
+		String id = request.getParameter("active"); //gets employee id to active
+		ArrayList<ProspectivePOJO>prospectList = new ProspectDAO().selectProspect(conn, id); //returning details of customer and status
 		
 		if(prospectList!=null) {
-			request.setAttribute("proList", prospectList);
+			request.setAttribute("proList",prospectList); //setting the prospect list inside prolist
 			
-			request.getRequestDispatcher("Re-assign_Prospects.jsp").forward(request, response);
+			System.out.println("Just before including reassign jsp");
+			
+			request.getRequestDispatcher("Reassign_Prospects.jsp").forward(request, response);
 		}
 		}catch(SQLException e) {
+			e.printStackTrace();
 			out.println("WE ARE HAVING TROUBLE FETCHING DATA!");
 		}
 		catch(NullPointerException e) {
-			request.getRequestDispatcher("Re-assign_Prospects.jsp").forward(request, response);
+			e.printStackTrace();
+			request.getRequestDispatcher("Reassign_Prospects.jsp").forward(request, response);
 		}
 		
 	}

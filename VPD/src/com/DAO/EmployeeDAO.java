@@ -65,7 +65,7 @@ public class EmployeeDAO {
 	}
 	public ArrayList<EmployeePOJO> listSalespersonCampaign(Connection conn,String campid) throws SQLException{
 		PreparedStatement stmt = conn.prepareStatement("SELECT EMP_ID,EMP_FIRST_NAME,EMP_LAST_NAME FROM EMPLOYEE WHERE EMP_ID IN (SELECT EMPLOYEE_ID FROM PROSPECTIVE_CUSTOMER WHERE CAMPAIGN_ID=?)");
-		stmt.setString(1, campid);
+		stmt.setString(1, campid); 
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<EmployeePOJO>empList = new ArrayList<EmployeePOJO>();
 		while(rs.next()) {

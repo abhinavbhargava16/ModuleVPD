@@ -29,7 +29,7 @@ function back()
 <%
 	String x = (String)session.getAttribute("status");
 if(!x.equals("True1")){
-	request.getRequestDispatcher("login.jsp").forward(request, response);
+	request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
 }
 else{
 	Connection conn = (Connection)request.getServletContext().getAttribute("connection");
@@ -40,12 +40,12 @@ else{
 
 %>
 
-<form action="MonitorController">
+<form action="MonitorServlet">
 <table>
 	<tr>
 		<td>Campaign</td>
 		<td>
-			<select name="campaign">
+			<select name="campaign"> <!-- campaign ID -->
 				<option></option>
 				<% while(i.hasNext()){
 					CampaignPOJO temp = i.next(); 
@@ -61,7 +61,7 @@ else{
 </table>
 </form>
 <%
-if(request.getAttribute("tot")!=null){
+if(request.getAttribute("tot")!=null){ //tot is countAll + countUnassigned total count
 	%>
 <table>
 	<tr>
@@ -70,7 +70,7 @@ if(request.getAttribute("tot")!=null){
 	</tr>
 	<tr>
 		<td>Unassigned prospects</td>
-		<td><%=request.getAttribute("un") %></td>
+		<td><%=request.getAttribute("un")%></td> <!-- un is only unassigned prospects count -->
 	</tr>
 </table>
 <%
@@ -83,18 +83,18 @@ if(request.getAttribute("tot")!=null){
 		<th>Sales Agent</th>
 		<th>Assigned Prospects</th>
 		<th>Follow-up in progress</th>
-		<th> Not interested</th>
-		<th>committed</th>
+		<th>Not interested</th>
+		<th>Committed</th>
 	</tr>
 	
 	<%
-	if(request.getAttribute("emList")!=null){
+	if(request.getAttribute("emList")!=null){ //emList is the arraylist which consists of all salespersons
 		ArrayList<EmployeePOJO>em = (ArrayList<EmployeePOJO>)request.getAttribute("emList");
-		Iterator<EmployeePOJO>j = em.listIterator();
-		String campid = (String)request.getAttribute("campid");
+		Iterator<EmployeePOJO>j = em.listIterator(); //emlist is passed onto em.
+		String campid = (String)request.getAttribute("campid"); //campaignId
 		while(j.hasNext()){
 			EmployeePOJO e = j.next();
-			int empid = e.getEmployee_id();
+			int empid = e.getEmployee_id(); //returns employee id
 			
 			%>
 			<tr>

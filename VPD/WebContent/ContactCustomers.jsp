@@ -27,10 +27,10 @@ ArrayList<ProspectivePOJO>proList = new ProspectDAO().selectProspect(conn, Integ
 Iterator<ProspectivePOJO>i = proList.listIterator();
 %>
 <h1 align="center">List of Prospective Customers</h1>
-<p align="right">Hi <%=e.getEmployee_id() %> </p>
+<p align="right">Hi <%=e.getName() %> </p>
 <p align="right"><a href="Logout.jsp">Logout</a></p>
 
-	<table>
+	<table align="center">
 		<tr>
 			<th>Campaign title</th>
 			<th>Prospect Name</th>

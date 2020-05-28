@@ -33,13 +33,14 @@ public class AssignServlet extends HttpServlet {
 		System.out.println("Inside assign servlet");
 		try {
 		
-		String name[] = request.getParameterValues("prospectNames");
-		String salesperson = request.getParameter("salesperson");
-		String campaign = (String) request.getParameter("hid");
+		String name[] = request.getParameterValues("prospectNames"); //customer_id
+		String salesperson = request.getParameter("salesperson"); //employee_id from assign prospects.
+		String campaign = (String) request.getParameter("hid"); //campaign_id from assignprospects.jsp
 		ProspectDAO obj = new ProspectDAO();
 		Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 		
 		for(String i:name) {
+			System.out.println("Inside for loop for insert prospect.");
 			ProspectivePOJO p = new ProspectivePOJO();
 			p.setCustomerID(Integer.parseInt(i));
 			p.setCampaginID(campaign);
@@ -47,7 +48,7 @@ public class AssignServlet extends HttpServlet {
 			obj.insertProspective(conn, p);
 			
 		}
-		out.print("SYSTEM:Salesperson with Employee ID-"+salesperson+" has been assign "+name.length+" prospect(s) for campaign id :"+campaign);
+		out.print("Salesperson with <b>Employee ID</b>-"+salesperson+" has been assign "+name.length+" prospect(s) for Campaign id :"+campaign);
 		request.getRequestDispatcher("AssignProspects.jsp").include(request, response);
 		}catch(SQLException e) {
 			out.println("SQL Exception");
