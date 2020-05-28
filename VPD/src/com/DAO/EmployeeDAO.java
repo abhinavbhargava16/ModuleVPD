@@ -34,7 +34,7 @@ public class EmployeeDAO {
 
 }
 	public ArrayList<EmployeePOJO> listAllSalesperson(Connection conn) throws SQLException{
-		PreparedStatement stmt = conn.prepareStatement("select emp_id,emp_first_name,emp_last_name from employee where emp_role='3'");
+		PreparedStatement stmt = conn.prepareStatement("select emp_id,emp_first_name,emp_last_name from employee where emp_role='2'");
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<EmployeePOJO>empList = new ArrayList<EmployeePOJO>();
 		while(rs.next()) {

@@ -62,7 +62,7 @@ public class CampaignDAO {
 	}
 	
 	public CampaignPOJO findCampaign(Connection conn, String id) throws SQLException {
-		PreparedStatement stmt = conn.prepareStatement("select a.campaign_id ,a.campaign_title,a.description,a.valid_from,a.valid_to,b.age_of_relationship,b.min_balance,b.profession from campaign a,campaign_criteria b where a.campaign_id=b.campaign_id and a.campaign_id=?");
+		PreparedStatement stmt = conn.prepareStatement("select a.campaign_id ,a.campaign_title,a.description,a.valid_from,a.valid_to,b.age_of_relationship,b.min_balance,b.profession from campaign a,campaign_criteria b where a.campaign_id=? and a.campaign_id=b.campaign_id");
 		stmt.setString(1, id);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
@@ -75,14 +75,14 @@ public class CampaignDAO {
 			temp.setAgeOfRelationship(rs.getInt(6));
 			temp.setAverageBalance(rs.getDouble(7));
 			temp.setProfession(rs.getString(8));
+//			System.out.println("Inside find campaign after setting values.");
 			return temp;
 		}
 		return null;
 	}
 	public void updateCampaign(Connection conn, String id, java.util.Date from, java.util.Date to,EmployeePOJO emp_id) throws SQLException {
-		System.out.println("Inside update campaign");
+	
 		PreparedStatement stmt = conn.prepareStatement("update campaign set valid_from=?,valid_to=? where campaign_id=?");
-		System.out.println("after prepare statement");
 		stmt.setDate(1, new Date(from.getTime()));
 		stmt.setDate(2, new Date(to.getTime()));
 		stmt.setString(3, id);

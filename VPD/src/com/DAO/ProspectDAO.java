@@ -17,16 +17,17 @@ public class ProspectDAO {
 		String prof = poj.getProfession();
 		PreparedStatement stmt;
 		if(prof.equals("ANY")) {
-			stmt = conn.prepareStatement("select a.customer_id,a.cust_first_name,a.cust_last_name,floor((SYSDATE-a.relationship_start_date)/365),b.balance,b.mobile_num from customer a join account b on a.preferred_acc_1 = b.account_number where (sysdate-a.relationship_start_date/365>=? and b.balance>=? and a.customer_id not in(select customer_id from prospective_customer)");
+//			System.out.println("inside unassignedprospective any");
+			stmt = conn.prepareStatement("select a.customer_id,a.cust_first_name,a.cust_last_name,floor((SYSDATE-a.relationship_start_date)/365),b.balance,b.mobile_num from customer a join account b on a.preferred_acc_1 = b.account_number where (SYSDATE-a.relationship_start_date)/365>=? and b.balance>=? and a.customer_id not in(select customer_id from prospective_customer)");
 			stmt.setInt(1, age);
 			stmt.setDouble(2, avg);
 		}
 		else {
+//			System.out.println("inside unassignedprospective");
 			stmt = conn.prepareStatement("SELECT A.CUSTOMER_ID,A.CUST_FIRST_NAME,A.CUST_LAST_NAME,FLOOR((SYSDATE-A.RELATIONSHIP_START_DATE)/365),B.BALANCE,B.MOBILE_NUM FROM CUSTOMER A JOIN ACCOUNT B ON A.PREFERRED_ACC_1 = B.ACCOUNT_NUMBER WHERE A.OCCUPATION=? AND (SYSDATE-A.RELATIONSHIP_START_DATE)/365>=? AND B.BALANCE>=? AND A.CUSTOMER_ID NOT IN(SELECT CUSTOMER_ID FROM PROSPECTIVE_CUSTOMER)");
 			stmt.setString(1, prof);
 			stmt.setInt(2, age);
 			stmt.setDouble(3, avg);
-			
 			
 		}
 
@@ -42,6 +43,7 @@ public class ProspectDAO {
 		temp.setBalance(rs.getDouble(5));
 		temp.setPhoneNumber(rs.getString(6));
 		myList.add(temp);
+//		System.out.println("Prospective POJO list added.");
 	}
 	return myList;
 }
@@ -75,7 +77,7 @@ public class ProspectDAO {
 		stmt.setString(2, prospect.getCampaginID());
 		stmt.setInt(3,prospect.getHandlerId());
 		stmt.execute();
-		System.out.println("After inserting in prospect table");
+//		System.out.println("After inserting in prospect table");
 		stmt = conn.prepareStatement("insert into status values(pro_status_id.nextval,?,SYSDATE,'Assigned',null)");
 		stmt.setInt(1, prospect.getCustomerID());
 		stmt.execute();	

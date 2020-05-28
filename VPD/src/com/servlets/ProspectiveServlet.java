@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,13 +35,19 @@ public class ProspectiveServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			Connection conn = (Connection) request.getServletContext().getAttribute("connection");
 			
-			String id = request.getParameter("campaign");
+			String id = request.getParameter("campaign"); //campaign_id from campaignPOJO
 			CampaignPOJO poj = new CampaignDAO().findCampaign(conn, id);
 			ArrayList<ProspectivePOJO> prospectiveList = new ProspectDAO().listUnassignedProspective(conn, poj);
 			
 			if(prospectiveList!=null)
 			{
 				System.out.println("Inside Prospect List");
+//				ListIterator<ProspectivePOJO> it = prospectiveList.listIterator();
+//				while(it.hasNext())
+//				{	
+//					System.out.println(it);
+//					it.next();
+//				}
 				request.setAttribute("proList", prospectiveList);
 				request.setAttribute("campaignSelected", id);
 				request.getRequestDispatcher("AssignProspects.jsp").forward(request, response);
@@ -51,6 +59,7 @@ public class ProspectiveServlet extends HttpServlet {
 		}
 		catch(NullPointerException e)
 		{
+			e.printStackTrace();
 			request.getRequestDispatcher("AssignProspects.jsp").forward(request, response);
 		}
 	}
